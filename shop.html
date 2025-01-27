@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Líder Online</title>
+        <link rel="stylesheet" href="shop_style.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <h1>Comercial Líder</h1>
+            </div>
+            <nav>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#" data-category="mercearia">Mercearia</a></li>
+                    <li><a href="#"
+                            data-category="hortifruti">Hortifruti</a></li>
+                    <li><a href="#" data-category="higiene">Higiene e
+                            Limpeza</a></li>
+                    <li><a href="#" data-category="bebidas">Bebidas</a></li>
+                    <li><a href="#" data-category="frios">Frios e
+                            Laticínios</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Buscar produtos...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="products-grid" id="products-container">
+
+            </div>
+
+            <div class="cart-sidebar">
+                <div class="cart-header">
+                    <h2>Carrinho</h2>
+                    <button class="close-cart"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="cart-items">
+
+                </div>
+                <div class="cart-total">
+                    <p>Total: R$ <span id="cart-total">0.00</span></p>
+                    <button class="checkout-btn">Finalizar Pedido</button>
+                </div>
+            </div>
+        </main>
+
+        <div class="checkout-modal" id="checkout-modal">
+            <div class="modal-content">
+                <h2>Finalizar Pedido</h2>
+                <form id="checkout-form">
+                    <input type="text" name="name" placeholder="Nome completo"
+                        required>
+                    <input type="tel" name="phone" placeholder="Telefone"
+                        required>
+                    <textarea name="address" placeholder="Endereço de entrega"
+                        required></textarea>
+                    <select name="payment" required>
+                        <option value>Forma de pagamento</option>
+                        <option value="credit">Cartão de Crédito</option>
+                        <option value="debit">Cartão de Débito</option>
+                        <option value="cash">Dinheiro</option>
+                        <option value="pix">PIX</option>
+                    </select>
+                    <button type="submit">Enviar Pedido</button>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Horário de Funcionamento</h3>
+                    <p>Segunda a Sábado: 7h30 às 19h</p>
+
+                </div>
+                <div class="footer-section">
+                    <h3>Redes Sociais</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/comercial__lider"
+                            target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/5568999140822"
+                            target="_blank"><i
+                                class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>Tel: (68) 3322-4856</p>
+                    <p>Email: contato@comerciallider.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Comercial Líder. Todos os direitos
+                    reservados.</p>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+</html>
