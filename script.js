@@ -1,12 +1,35 @@
 const products = {
-  mercearia: [
+  ofertas: [
+    {
+      id: 6,
+      name: "Cafe",
+      price: 30.99,
+      oldPrice: 50.99,
+      image: "../img/cafe.webp",
+      category: "ofertas",
+      discount: true,
+    },
+    {
+      id: 5,
+      name: "Oleo de Soja",
+      price: 2.99,
+      oldPrice: 5.99,
+      image: "../img/oleo de soja.webp",
+      category: "ofertas",
+      discount: true,
+    },
     {
       id: 1,
       name: "Açucar",
-      price: 4.99,
-      image: "../img/açucar.webp",
-      category: "mercearia",
+      price: 2.99,
+      oldPrice: 4.99,
+      image: "./img/açucar.webp",
+      category: "ofertas",
+      discount: true,
     },
+  ],
+
+  mercearia: [
     {
       id: 2,
       name: "Feijão",
@@ -26,20 +49,6 @@ const products = {
       name: "Sal",
       price: 3.99,
       image: "../img/sal.webp",
-      category: "mercearia",
-    },
-    {
-      id: 5,
-      name: "Oleo de Soja",
-      price: 2.99,
-      image: "../img/oleo de soja.webp",
-      category: "mercearia",
-    },
-    {
-      id: 6,
-      name: "Cafe",
-      price: 222.99,
-      image: "../img/cafe.webp",
       category: "mercearia",
     },
   ],
@@ -146,7 +155,7 @@ const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
 const navLinks = document.querySelector(".nav-links");
 
 document.addEventListener("DOMContentLoaded", () => {
-  displayProducts("all");
+  displayProducts("ofertas");
   updateCartCount();
 });
 
@@ -187,38 +196,82 @@ searchInput.addEventListener("input", (e) => {
 
 function displayProducts(category) {
   productsContainer.innerHTML = "";
-  let productsToShow = [];
 
   if (category === "all") {
-    Object.values(products).forEach((categoryProducts) => {
-      productsToShow = [...productsToShow, ...categoryProducts];
+    // Always show Ofertas do Dia first
+    createCategorySection("Ofertas do Dia", products.ofertas);
+
+    // Then show other categories
+    Object.entries(products).forEach(([categoryName, categoryProducts]) => {
+      if (categoryName !== "ofertas") {
+        createCategorySection(getCategoryTitle(categoryName), categoryProducts);
+      }
     });
   } else {
-    productsToShow = products[category] || [];
+    const categoryProducts = products[category] || [];
+    createCategorySection(getCategoryTitle(category), categoryProducts);
   }
+}
 
-  productsToShow.forEach((product) => {
+function getCategoryTitle(category) {
+  const titles = {
+    ofertas: "Ofertas do Dia",
+    mercearia: "Mercearia",
+    hortifruti: "Hortifruti",
+    higiene: "Higiene e Limpeza",
+    bebidas: "Bebidas",
+    frios: "Frios e Laticínios",
+  };
+  return titles[category] || category;
+}
+
+function createCategorySection(title, products) {
+  if (products.length === 0) return;
+
+  const section = document.createElement("section");
+  section.className = "category-section";
+
+  const titleElement = document.createElement("h2");
+  titleElement.className = "category-title";
+  titleElement.textContent = title;
+
+  const productsGrid = document.createElement("div");
+  productsGrid.className = "products-grid";
+
+  products.forEach((product) => {
     const productElement = createProductElement(product);
-    productsContainer.appendChild(productElement);
+    productsGrid.appendChild(productElement);
   });
+
+  section.appendChild(titleElement);
+  section.appendChild(productsGrid);
+  productsContainer.appendChild(section);
 }
 
 function createProductElement(product) {
   const div = document.createElement("div");
   div.className = "product-card";
+
+  const priceHTML = product.discount
+    ? `<p class="price">
+           <span class="old-price">R$ ${product.oldPrice.toFixed(2)}</span>
+           <span class="new-price">R$ ${product.price.toFixed(2)}</span>
+         </p>`
+    : `<p class="price">R$ ${product.price.toFixed(2)}</p>`;
+
   div.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p class="price">R$ ${product.price.toFixed(2)}</p>
-        <div class="quantity-controls">
-            <button class="quantity-btn minus">-</button>
-            <input type="number" min="1" value="1" class="quantity-input">
-            <button class="quantity-btn plus">+</button>
-        </div>
-        <button class="add-to-cart" data-id="${product.id}">
-            Adicionar ao Carrinho
-        </button>
-    `;
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      ${priceHTML}
+      <div class="quantity-controls">
+          <button class="quantity-btn minus">-</button>
+          <input type="number" min="1" value="1" class="quantity-input">
+          <button class="quantity-btn plus">+</button>
+      </div>
+      <button class="add-to-cart" data-id="${product.id}">
+          Adicionar ao Carrinho
+      </button>
+  `;
 
   const quantityInput = div.querySelector(".quantity-input");
   const minusBtn = div.querySelector(".minus");
@@ -387,7 +440,7 @@ checkoutForm.addEventListener("submit", (e) => {
   };
 
   const message = formatWhatsAppMessage(customerData);
-  const whatsappNumber = "5511999999999";
+  const whatsappNumber = "5568999828561";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     message
   )}`;
