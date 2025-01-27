@@ -440,6 +440,11 @@ footer {
         display: flex;
     }
 
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
     .cart-sidebar {
         width: 100%;
         right: -100%;
